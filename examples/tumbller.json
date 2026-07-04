@@ -1,0 +1,20 @@
+{
+  "name": "Tumbller-Finland-01",
+  "description": "A physical ESP32-S3 two-wheeled robot controllable via MCP.",
+  "robot_type": "differential_drive",
+  "fleet_provider": "yakrobot",
+  "fleet_domain": "yakrobot.com/finland",
+  "image": "",
+  "mcp_endpoint": "https://demo.ngrok.app/tumbller/mcp",
+  "fleet_endpoint": "https://demo.ngrok.app/fleet/mcp",
+  "tool_names": [
+    "tumbller_move",
+    "tumbller_is_online",
+    "tumbller_get_temperature_humidity"
+  ],
+  "bidding_terms": {
+    "min_price_cents": 50,
+    "currency": "usdc",
+    "accepted_task_types": ["sensor_reading"]
+  }
+}

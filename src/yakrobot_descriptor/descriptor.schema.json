@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yakrobot.org/schemas/robot-descriptor/v1.json",
+  "title": "RobotDescriptor",
+  "x-schema-version": "1.0.0",
+  "$defs": {
+    "BiddingTerms": {
+      "description": "Marketplace pricing terms carried on the descriptor (flat, wire-facing subset).\n\nThis is the *contract* subset \u2014 the robot-side plugin may track more fields\ninternally, but only these cross the boundary.",
+      "properties": {
+        "min_price_cents": {
+          "minimum": 0,
+          "title": "Min Price Cents",
+          "type": "integer"
+        },
+        "currency": {
+          "default": "usd",
+          "title": "Currency",
+          "type": "string"
+        },
+        "accepted_task_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Accepted Task Types",
+          "type": "array"
+        }
+      },
+      "required": [
+        "min_price_cents"
+      ],
+      "title": "BiddingTerms",
+      "type": "object"
+    }
+  },
+  "description": "Everything a registration layer needs to register/update an agent.\n\nPublic endpoints arrive already resolved. ``bidding_terms`` is ``None`` to opt out\nof the marketplace.",
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "robot_type": {
+      "title": "Robot Type",
+      "type": "string"
+    },
+    "fleet_provider": {
+      "default": "",
+      "title": "Fleet Provider",
+      "type": "string"
+    },
+    "fleet_domain": {
+      "default": "",
+      "title": "Fleet Domain",
+      "type": "string"
+    },
+    "image": {
+      "default": "",
+      "title": "Image",
+      "type": "string"
+    },
+    "mcp_endpoint": {
+      "default": "",
+      "title": "Mcp Endpoint",
+      "type": "string"
+    },
+    "fleet_endpoint": {
+      "default": "",
+      "title": "Fleet Endpoint",
+      "type": "string"
+    },
+    "tool_names": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tool Names",
+      "type": "array"
+    },
+    "bidding_terms": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BiddingTerms"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "robot_type"
+  ],
+  "type": "object"
+}

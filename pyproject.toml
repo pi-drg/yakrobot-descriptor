@@ -1,0 +1,31 @@
+[project]
+name = "yakrobot-descriptor"
+version = "0.1.0"
+description = "The RobotDescriptor contract shared across yakrobot producers and consumers: one Pydantic model + the JSON Schema it generates. No producer/consumer types leak across it."
+readme = "README.md"
+requires-python = ">=3.13"
+
+# Base install is pydantic-free: it ships descriptor.schema.json + a stdlib loader, so a
+# consumer can validate JSON against the schema without pulling a validation framework
+# into its core (see yakrobot-identity).
+dependencies = []
+
+[project.optional-dependencies]
+# Python producers that build/validate descriptors via the Pydantic model.
+model = ["pydantic>=2.0"]
+# Consumers that validate raw JSON against the shipped schema without Pydantic.
+validate = ["jsonschema>=4.0"]
+dev = ["pytest>=8.0", "pydantic>=2.0", "jsonschema>=4.0"]
+
+[tool.uv]
+prerelease = "allow"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+yakrobot_descriptor = ["descriptor.schema.json"]
